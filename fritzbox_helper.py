@@ -52,7 +52,7 @@ def get_session_id(server, password, port=80):
         print(err)
         sys.exit(1)
 
-    root = etree.fromstring(r.content)
+    root = etree.fromstring(r.text)
     session_id = root.xpath('//SessionInfo/SID/text()')[0]
     if session_id == "0000000000000000":
         challenge = root.xpath('//SessionInfo/Challenge/text()')[0]
@@ -75,7 +75,7 @@ def get_session_id(server, password, port=80):
         print(err)
         sys.exit(1)
 
-    root = etree.fromstring(r.content)
+    root = etree.fromstring(r.text)
     session_id = root.xpath('//SessionInfo/SID/text()')[0]
     if session_id == "0000000000000000":
         print("ERROR - No SID received because of invalid password")
@@ -104,7 +104,7 @@ def get_page_content(server, session_id, page, port=80):
     except requests.exceptions.HTTPError as err:
         print(err)
         sys.exit(1)
-    return r.content
+    return r.text
 
 
 def get_xhr_content(server, session_id, page, port=80):
@@ -134,4 +134,4 @@ def get_xhr_content(server, session_id, page, port=80):
     except requests.exceptions.HTTPError as err:
         print(err)
         sys.exit(1)
-    return r.content
+    return r.text
