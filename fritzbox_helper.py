@@ -52,7 +52,7 @@ def get_session_id(server, password, port=80):
         print(err)
         sys.exit(1)
 
-    root = etree.fromstring(r.text)
+    root = etree.fromstring(r.content)
     session_id = root.xpath('//SessionInfo/SID/text()')[0]
     if session_id == "0000000000000000":
         challenge = root.xpath('//SessionInfo/Challenge/text()')[0]
@@ -75,7 +75,7 @@ def get_session_id(server, password, port=80):
         print(err)
         sys.exit(1)
 
-    root = etree.fromstring(r.text)
+    root = etree.fromstring(r.content)
     session_id = root.xpath('//SessionInfo/SID/text()')[0]
     if session_id == "0000000000000000":
         print("ERROR - No SID received because of invalid password")
